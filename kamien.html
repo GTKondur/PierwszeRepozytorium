@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Papier, kamień, nożyce, jaszczurka, Spock</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: red;
+          animation: changeColor 5s infinite;
+        }
+        @keyframes changeColor {
+  0% { background-color: red; }
+  50% { background-color: blue; }
+  100% { background-color: green; }
+}
+        h1 {
+          text-align: center;
+          margin-top: 30px;
+        }
+        p {
+          margin-top: 20px;
+        }
+        div {
+          margin-top: 10px;
+        }
+        label {
+          margin-left: 10px;
+        }
+        button {
+          display: block;
+          margin: 20px auto;
+          padding: 10px 20px;
+          font-size: 18px;
+          border: none;
+          border-radius: 5px;
+          background-color: #007bff;
+          color: #fff;
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #0069d9;
+        }
+        #result {
+          font-size: 24px;
+          font-weight: bold;
+          margin-top: 30px;
+          text-align: center;
+        }
+        #score {
+          font-size: 18px;
+          font-weight: bold;
+          margin-top: 20px;
+        }
+        #score span {
+          margin-left: 10px;
+          font-weight: normal;
+        }
+        #rock
+        {
+            text-align: center;
+        }
+        #paper
+        {
+            text-align: center;
+        }
+        #scissors
+        {
+            text-align: center;
+        }
+        #spock
+        {
+            text-align: center;
+        }
+        #lizard
+        {
+            text-align: center;
+        }
+        h1{
+            color:red;
+        }
+      </style>
+  </head>
+
+
+  <body>
+    <h1>Papier, kamień, nożyce, jaszczurka, Spock</h1>
+    <p><center>Wybierz swoją opcję:</center></p>
+    <div id="paper">
+      <input type="radio" id="paper" name="choice" value="paper">
+      <label for="paper">Papier</label>
+    </div>
+    <div id="rock">
+      <input type="radio" id="rock" name="choice" value="rock">
+      <label for="rock">Kamień</label>
+    </div>
+    <div id="scissors">
+      <input type="radio" id="scissors" name="choice" value="scissors">
+      <label for="scissors">Nożyce</label>
+    </div>
+    <div id="lizard">
+      <input type="radio" id="lizard" name="choice" value="lizard">
+      <label for="lizard">Jaszczurka</label>
+    </div>
+    <div id="spock">
+      <input type="radio" id="spock" name="choice" value="spock">
+      <label for="spock">Spock</label>
+    </div>
+    <button onclick="play()">Zagraj</button>
+    <p id="result"></p>
+    <p id="score"></p>
+    
+    <center>Wyniki:
+    <div>
+        <p>Wygrane: <span id="wins">0</span></p>
+        <p>Przegrane: <span id="losses">0</span></p>
+        <p>Remisy: <span id="ties">0</span></p>
+      </div>
+</center>
+<button onclick="reset()" >Reset wyników </button>
+
+
+
+    <script>
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+
+      function play() {
+        const userChoice = document.querySelector('input[name="choice"]:checked').value;
+        const computerChoice = getRandomChoice();
+        const result = getResult(userChoice, computerChoice);
+        const message = getMessage(result, userChoice, computerChoice);
+        document.getElementById("result").textContent = message;
+        if (result === "win") {
+    wins++;
+  } else if (result === "lose") {
+    losses++;
+  } else {
+    ties++;
+  }
+  document.getElementById("wins").textContent = wins;
+  document.getElementById("losses").textContent = losses;
+  document.getElementById("ties").textContent = ties;
+}
+      
+
+      function getRandomChoice() {
+        const choices = ["papier", "rock", "scissors", "lizard", "spock"];
+        const index = Math.floor(Math.random() * choices.length);
+        return choices[index];
+      }
+
+      function getResult(userChoice, computerChoice) {
+        switch (userChoice) {
+          case "paper":
+            switch (computerChoice) {
+              case "rock":
+              case "spock":
+                return "win";
+              case "scissors":
+              case "lizard":
+                return "lose";
+              default:
+                return "tie";
+            }
+          case "rock":
+            switch (computerChoice) {
+              case "scissors":
+              case "lizard":
+                return "win";
+              case "paper":
+              case "spock":
+                return "lose";
+              default:
+                return "tie";
+            }
+          case "scissors":
+            switch (computerChoice) {
+              case "paper":
+              case "lizard":
+                return "win";
+              case "rock":
+              case "spock":
+                return "lose";
+              default:
+                return "tie";
+            }
+          case "lizard":
+            switch (computerChoice) {
+              case "paper":
+              case "spock":
+                return "win";
+              case "rock":
+              case "scissors":
+                return "lose";
+              default:
+                return "tie";
+            }
+          case "spock":
+            switch (computerChoice) {
+              case "rock":
+              case "scissors":
+             return "win";
+            case "paper":
+            case "lizard":
+return "lose";
+            default:
+            return "tie";
+}
+}
+}
+function getMessage(result, userChoice, computerChoice) {
+    switch (result) {
+      case "win":
+        return `${userChoice} bije ${computerChoice}. Wygrałeś!`;
+      case "lose":
+        return `${computerChoice} bije ${userChoice}. Przegrałeś.`;
+      default:
+        return `Obaj wybraliście ${userChoice}. Remis!`;
+    }
+  }
+
+  function reset(){
+
+    wins=0;
+    losses=0;
+    ties=0;
+    document.getElementById("wins").innerHTML=wins;
+    document.getElementById("losses").innerHTML=losses;
+    document.getElementById("ties").innerHTML=ties;
+  }
+</script>
+</body>
+</html>
